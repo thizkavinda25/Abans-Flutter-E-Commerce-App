@@ -1,4 +1,9 @@
+import 'package:abans_online/screens/home_screen.dart';
+import 'package:abans_online/utils/navigator_manage.dart';
 import 'package:flutter/material.dart';
+
+import '../components/custom_button.dart';
+import '../components/custom_text_field.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -8,6 +13,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  String authType = 'signup';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,46 +28,79 @@ class _AuthScreenState extends State<AuthScreen> {
               Image.asset('assets/images/text_logo.png', height: 70),
               SizedBox(height: 30),
               Text(
-                'Login',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                authType == 'signup'
+                    ? 'Create Account'
+                    : authType == 'signin'
+                    ? 'Login to your Account'
+                    : 'Forgot Password',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               Text(
-                'Connect with Your Account',
+                authType != 'forgot'
+                    ? 'Connect with Your Account'
+                    : 'Enter your email to reset password',
                 style: TextStyle(color: Colors.grey.shade600),
               ),
               SizedBox(height: 40),
-              Text('Email Address'),
-              SizedBox(height: 5),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500),
-                    borderRadius: BorderRadius.circular(8),
+              CustomTextField(labelText: 'Email Address'),
+              if (authType != 'forgot')
+                CustomTextField(labelText: 'Password', isPassword: true),
+              if (authType == 'signup')
+                CustomTextField(
+                  labelText: 'Confirm Password',
+                  isPassword: true,
+                ),
+              if (authType == 'signin')
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        authType = 'forgot';
+                      });
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: Colors.grey.shade600),
+                    ),
                   ),
                 ),
+              SizedBox(height: 16),
+              CustomButton(
+                text: authType == 'signup'
+                    ? 'Create Account'
+                    : authType == 'signin'
+                    ? 'Login'
+                    : 'Send Reset Link',
+                onTap: () {
+                  NavigatorManage.goTo(context, HomeScreen()); 
+                },
               ),
-              SizedBox(height: 20),
-              Text('Password'),
-              SizedBox(height: 5),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500),
-                    borderRadius: BorderRadius.circular(8),
+              if (authType != 'forgot')
+                Center(
+                  child: Text(
+                    authType != 'signin'
+                        ? 'Already have an account?'
+                        : "Don't have an account?",
+                    style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
                   ),
                 ),
+              CustomButton(
+                text: authType == 'signup'
+                    ? 'Sign In'
+                    : authType == 'signin'
+                    ? 'Sign Up'
+                    : 'Sign In',
+                isOutlineButton: true,
+                onTap: () {
+                  setState(() {
+                    if (authType == 'signin') {
+                      authType = 'signup';
+                    } else {
+                      authType = 'signin';
+                    }
+                  });
+                },
               ),
             ],
           ),
