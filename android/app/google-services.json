@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "889977892944",
+    "project_id": "abans-online",
+    "storage_bucket": "abans-online.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889977892944:android:e2bfebff8ee93f1db0e155",
+        "android_client_info": {
+          "package_name": "com.example.abans_online"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWcjz9nlcZ-LuaUwGP6EfyyniUm-2CRUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:abans_online/screens/auth_screen.dart';
+import 'package:abans_online/screens/home_screen.dart';
 import 'package:abans_online/utils/custom_colors.dart';
 import 'package:abans_online/utils/navigator_manage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,8 +21,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 2),
-      () => NavigatorManage.goPushReplace(context, AuthScreen()),
+      Duration(seconds: 1),
+      () => FirebaseAuth.instance.authStateChanges().listen((user){
+        if (user == null) {
+          NavigatorManage.goPushReplace(context, AuthScreen());
+        }else{
+          NavigatorManage.goPushReplace(context, HomeScreen());
+        }
+      })
     );
   }
 
