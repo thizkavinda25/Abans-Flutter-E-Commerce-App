@@ -1,6 +1,8 @@
+import 'package:abans_online/controllers/auth_controller.dart';
 import 'package:abans_online/utils/custom_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,7 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Image.asset('assets/images/text_logo.png', height: 25),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        EasyLoading.show(status: 'Signing Out');
+                        await AuthController().signOut();
+                        EasyLoading.dismiss();
+                      },
                       icon: Icon(Icons.more_vert, size: 25),
                     ),
                   ],

@@ -3,6 +3,7 @@ import 'package:abans_online/screens/splash_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
+      builder: EasyLoading.init(),
       home: const SplashScreen(),
     );
   }

@@ -85,7 +85,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     onTap: () {
                       setState(() {
                         if (authType == 'signup') {
-                          authProvider.signUp();
+                          authProvider.signUp(context);
                         } else if (authType == 'signin') {
                           //sign in
                         } else {
