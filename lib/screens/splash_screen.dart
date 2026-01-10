@@ -3,11 +3,13 @@
 import 'dart:async';
 
 import 'package:abans_online/screens/auth_screen.dart';
-import 'package:abans_online/screens/home_screen.dart';
 import 'package:abans_online/utils/custom_colors.dart';
 import 'package:abans_online/utils/navigator_manage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,16 +22,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-      Duration(seconds: 3),
-      () => FirebaseAuth.instance.authStateChanges().listen((user) {
-        if (user == null) {
-          NavigatorManage.goTo(context, AuthScreen());
-        } else {
-          NavigatorManage.goTo(context, HomeScreen());
-        }
-      }),
-    );
+    if (FirebaseAuth.instance.currentUser == null) {
+      Timer(const Duration(seconds: 2), () {
+        NavigatorManage.goPushReplace(context, const AuthScreen());
+      });
+    } else {
+      Timer(const Duration(seconds: 0), () {
+        Provider.of<UserProvider>(
+          context,
+          listen: false,
+        ).fetchUserData(context);
+      });
+    }
   }
 
   @override

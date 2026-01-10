@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 
+import '../screens/auth_screen.dart';
+import '../utils/navigator_manage.dart';
+
 class AuthController {
   Future<User?> createUserAccount({
     required String email,
@@ -50,7 +53,8 @@ class AuthController {
     return null;
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
+    NavigatorManage.goPushReplace(context, AuthScreen());
   }
 }
