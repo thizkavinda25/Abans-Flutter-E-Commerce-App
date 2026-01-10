@@ -32,8 +32,9 @@ class AuthStateProvider extends ChangeNotifier {
         _passwordController.text.trim()) {
       CustomDialogs.showErrorSnackBar(context, "Password doesn't match");
     } else {
-      EasyLoading.show(status: 'Creating Account...');
+      EasyLoading.show(status: 'Creating Account');
       await AuthController().createUserAccount(
+        context: context,
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -41,6 +42,28 @@ class AuthStateProvider extends ChangeNotifier {
       _emailController.text = '';
       _passwordController.text = '';
       _confirmPasswordController.text = '';
+    }
+  }
+
+  Future<void> signIn(BuildContext context) async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      CustomDialogs.showErrorSnackBar(context, 'Please fill all the fields');
+    } else if (RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(_emailController.text) ==
+        false) {
+      CustomDialogs.showErrorSnackBar(
+        context,
+        'Please enter a valid email address',
+      );
+    } else {
+      EasyLoading.show();
+      await AuthController().signInUser(
+        context: context,
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      EasyLoading.dismiss();
+      _emailController.text = '';
+      _passwordController.text = '';
     }
   }
 }

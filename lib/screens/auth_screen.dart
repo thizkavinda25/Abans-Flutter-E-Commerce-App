@@ -87,7 +87,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         if (authType == 'signup') {
                           authProvider.signUp(context);
                         } else if (authType == 'signin') {
-                          //sign in
+                          authProvider.signIn(context);
                         } else {
                           //forgot
                         }
