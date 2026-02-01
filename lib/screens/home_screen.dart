@@ -1,6 +1,8 @@
 import 'package:abans_online/controllers/auth_controller.dart';
 import 'package:abans_online/providers/user_provider.dart';
+import 'package:abans_online/screens/admin/product_add_screen.dart';
 import 'package:abans_online/utils/custom_colors.dart';
+import 'package:abans_online/utils/navigator_manage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -44,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            NavigatorManage.goTo(context, ProductAddScreen());
+                          },
                           icon: Icon(Icons.menu, size: 25),
                         ),
                         Image.asset('assets/images/text_logo.png', height: 25),

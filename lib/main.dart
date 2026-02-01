@@ -1,4 +1,5 @@
 import 'package:abans_online/providers/auth_state_provider.dart';
+import 'package:abans_online/providers/product_add_provider.dart';
 import 'package:abans_online/screens/splash_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthStateProvider()),
         ChangeNotifierProvider(create:  (context) => UserProvider()),
+        ChangeNotifierProvider(create:  (context) => ProductAddProvider()),
       ],
       child: DevicePreview(enabled: true, builder: (context) => MyApp()),
     ),
