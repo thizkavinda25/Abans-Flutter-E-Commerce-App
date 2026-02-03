@@ -18,10 +18,10 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthStateProvider()),
-        ChangeNotifierProvider(create:  (context) => UserProvider()),
-        ChangeNotifierProvider(create:  (context) => ProductAddProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ProductAddProvider()),
       ],
-      child: DevicePreview(enabled: true, builder: (context) => MyApp()),
+      child: DevicePreview(enabled: true, builder: (context) => const MyApp()),
     ),
   );
 }

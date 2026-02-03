@@ -14,25 +14,30 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    const baseWidth = 375.0;
+    final scale = ((mq.size.width / baseWidth).clamp(0.8, 1.2));
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 15),
+        margin: EdgeInsets.symmetric(vertical: 15 * scale),
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 13),
+        padding: EdgeInsets.symmetric(vertical: 13 * scale),
         decoration: BoxDecoration(
           border: Border.all(
-            width: isOutlineButton ? 1 : 0,
+            width: isOutlineButton ? 1.0 * scale : 0.0,
             color: CustomColors.primaryColor,
           ),
           color: isOutlineButton ? Colors.white : CustomColors.primaryColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10 * scale),
         ),
         child: Center(
           child: Text(
             text,
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 15 * scale,
               color: isOutlineButton ? CustomColors.primaryColor : Colors.white,
             ),
           ),

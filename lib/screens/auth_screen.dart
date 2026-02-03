@@ -16,21 +16,29 @@ class _AuthScreenState extends State<AuthScreen> {
   String authType = 'signup';
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    const baseWidth = 375.0;
+    final scale = ((mq.size.width / baseWidth).clamp(0.8, 1.2));
     return Scaffold(
       backgroundColor: Colors.white,
       body: Consumer<AuthStateProvider>(
         builder: (context, authProvider, child) {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0 * scale),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset('assets/images/text_logo.png', height: 60),
-                    SizedBox(height: 20),
+                    SafeArea(
+                      child: Image.asset(
+                        'assets/images/text_logo.png',
+                        height: 60 * scale,
+                      ),
+                    ),
+                    SizedBox(height: 20 * scale),
                     Text(
                       authType == 'signup'
                           ? 'Create Account'
@@ -38,7 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ? 'Login to your Account'
                           : 'Forgot Password',
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 25 * scale,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -46,9 +54,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       authType != 'forgot'
                           ? 'Connect with Your Account'
                           : 'Enter your email to reset password',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 14 * scale,
+                      ),
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 40 * scale),
                     if (authType == 'signup')
                       CustomTextField(
                         labelText: 'Name',
@@ -81,11 +92,14 @@ class _AuthScreenState extends State<AuthScreen> {
                           },
                           child: Text(
                             'Forgot Password?',
-                            style: TextStyle(color: Colors.grey.shade600),
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 13 * scale,
+                            ),
                           ),
                         ),
                       ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 16 * scale),
                     CustomButton(
                       text: authType == 'signup'
                           ? 'Create Account'
@@ -111,7 +125,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ? 'Already have an account?'
                               : "Don't have an account?",
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: 13 * scale,
                             color: Colors.grey.shade600,
                           ),
                         ),

@@ -32,13 +32,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    const baseWidth = 375.0;
+    final scale = ((mq.size.width / baseWidth).clamp(0.8, 1.2));
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0 * scale),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.labelText),
-          SizedBox(height: 5),
+          Text(widget.labelText, style: TextStyle(fontSize: 14 * scale)),
+          SizedBox(height: 5 * scale),
           TextField(
             controller: widget.controller,
             obscureText: widget.isPassword && isObsecureText,
@@ -46,18 +50,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
             maxLength: widget.maxLength,
             minLines: widget.isPassword ? 1 : widget.minLines,
             keyboardType: widget.keyboardType,
+            style: TextStyle(fontSize: 14 * scale),
 
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.grey.shade100,
               prefixText: widget.prefixText,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 12 * scale,
+                horizontal: 12 * scale,
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8 * scale),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8 * scale),
               ),
               suffixIcon: widget.isPassword
                   ? IconButton(
@@ -71,6 +80,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: Colors.grey.shade600,
+                        size: 20 * scale,
                       ),
                     )
                   : null,

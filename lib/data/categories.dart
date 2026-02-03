@@ -21,7 +21,7 @@ class Categories {
     ),
   ];
 
-  Category findCategoryById(String id){
+  Category findCategoryById(String id) {
     return list.firstWhere((element) => element.id == id);
   }
 }

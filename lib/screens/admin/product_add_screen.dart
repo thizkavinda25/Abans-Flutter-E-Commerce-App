@@ -1,3 +1,4 @@
+import 'package:abans_online/components/custom_button.dart';
 import 'package:abans_online/components/custom_text_field.dart';
 import 'package:abans_online/data/categories.dart';
 import 'package:abans_online/providers/product_add_provider.dart';
@@ -78,18 +79,79 @@ class _ProductAddScreenState extends State<ProductAddScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Product Category'),
-                        FilledButton(
-                          onPressed: () {
-                            productAddProvider.addImages();
-                          },
-                          child: Text('Add Images'),
-                        ),
+                        if (productAddProvider.pickedImages.length < 5)
+                          FilledButton(
+                            onPressed: () {
+                              productAddProvider.addImages();
+                            },
+                            child: Text('Add Images'),
+                          ),
                       ],
                     ),
+                  ),
+                  Wrap(
+                    children: productAddProvider.pickedImages.map((image) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                image: DecorationImage(
+                                  image: FileImage(image),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 4,
+                              right: 4,
+                              child: GestureDetector(
+                                onTap: () {
+                                  productAddProvider.removeImage(image);
+                                },
+                                child: Container(
+                                  width: 24,
+                                  height: 24,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: Icon(
+                                    Icons.close_rounded,
+                                    color: Colors.white,
+                                    size: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 70),
+                          ],
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ],
               ),
             ),
+          ),
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsetsGeometry.all(8.00),
+                child: SafeArea(
+                  child: CustomButton(text: 'Published Product', onTap: () {}),
+                ),
+              ),
+            ],
           ),
         );
       },

@@ -26,11 +26,40 @@ class ProductAddProvider extends ChangeNotifier {
 
   Future<void> addImages() async {
     final imagePicker = ImagePicker();
-    final images = await imagePicker.pickMultiImage(
-      limit: 5,
-      imageQuality: 70,
-      maxHeight: 600,
-    );
-    _pickedImages = images.map((e) => File(e.path)).toList();
+    final remaining = 5 - _pickedImages.length;
+
+    if (remaining <= 0) return; // Already reached max
+
+    if (remaining == 1) {
+      final image = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+        maxHeight: 600,
+      );
+      if (image != null) {
+        _pickedImages.add(File(image.path));
+        notifyListeners();
+      }
+    } else {
+      final images = await imagePicker.pickMultiImage(
+        imageQuality: 70,
+        maxHeight: 600,
+      );
+
+      if (images != null && images.isNotEmpty) {
+        // Add only up to remaining slots
+        final newImages = images
+            .take(remaining)
+            .map((img) => File(img.path))
+            .toList();
+        _pickedImages.addAll(newImages);
+        notifyListeners();
+      }
+    }
+  }
+
+  void removeImage(File image) {
+    _pickedImages.remove(image);
+    notifyListeners();
   }
 }

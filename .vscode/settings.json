@@ -3,5 +3,6 @@
         "Abans",
         "appl",
         "Obsecure"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
