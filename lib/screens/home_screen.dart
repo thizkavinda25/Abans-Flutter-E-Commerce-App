@@ -1,4 +1,5 @@
 import 'package:abans_online/controllers/auth_controller.dart';
+import 'package:abans_online/data/categories.dart';
 import 'package:abans_online/providers/user_provider.dart';
 import 'package:abans_online/screens/admin/product_add_screen.dart';
 import 'package:abans_online/utils/custom_colors.dart';
@@ -114,6 +115,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: Categories.list
+                        .map(
+                          (e) => Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            margin: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.purple.shade50,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(e.icon,color: Colors.purple,),
+                                SizedBox(width: 12),
+                                Text(e.name),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ],
